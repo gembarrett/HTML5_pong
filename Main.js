@@ -117,7 +117,7 @@ function handleComplete(event)
 function handleFileLoad(event)
 {
 	//when individual files finish loading 
-	switch.(event.type)
+	switch(event.type)
 	{
 		//if image loaded then create bitmap and stick in a variable before calling handleLoadComplete
 		case PreloadJS.IMAGE:
@@ -310,7 +310,7 @@ function update ()
 	if((ball.y) < 0) //top border
 	{
 		ySpeed = -ySpeed;
-		SoundJS.play('wall)';
+		SoundJS.play('wall');
 	};
 	
 	if((ball.y + (30)) > 320) //bottom border
@@ -376,6 +376,7 @@ function update ()
 		alert('lose');
 	}
 	
+}
 	
 
 
