@@ -3,34 +3,33 @@
 	<head>
 		<title>Pong Game using CreateJS</title>
 		
-		/* remove mobile highlight which appears when playing on mobile device - otherwise canvas object gets highlighted and finger movements are ignored */
 		<!- remove mobile highlight which appears when playing on mobile device - otherwise canvas object gets highlighted and finger movements are ignored -->
 		<style>*{-webkit-tap-highlight-color: rgba(0,0,0,0);}</style>
 		
-		/* load the CreateJS libraries from the CreateJS CDN (Content Delivery Network) */
+		<!- load the CreateJS libraries from the CreateJS CDN (Content Delivery Network)  -->
 		
-		/* start with EaselJS for working with HTML5 Canvas */
+		<!- start with EaselJS for working with HTML5 Canvas  -->
 		<script src="http://code.createjs.com/easeljs-0.5.0.min.js"></script>
-		/* followed by TweenJS for tweening and animating */
+		<!- followed by TweenJS for tweening and animating  -->
 		<script src="http://code.createjs.com/tweenjs-0.3.0.min.js"></script>
-		/* then SoundJS for working with audio */
+		<!- then SoundJS for working with audio  -->
 		<script src="http://code.createjs.com/soundjs-0.3.0.min.js"></script>
-		/* and PreloadJS for co-ordinating the loading of assets */
+		<!- and PreloadJS for co-ordinating the loading of assets  -->
 		<script src="http://code.createjs.com/preloadjs-0.2.0.min.js"></script>
-		/* finishing up with MovieClip */
+		<!- finishing up with MovieClip  -->
 		<script src="http://code.createjs.com/movieclip-0.5.0.min.js"></script>
 		
-		/* load the SoundJS Flash plugin for browsers that don't support HTML5 audio */
+		<!- load the SoundJS Flash plugin for browsers that don't support HTML5 audio  -->
 		<script src="assets/soundjs.flashplugin-0.3.0.min.js"></script>
 		
-		/* load the code for the game */
+		<!- load the code for the game  -->
 		<script src="Main.js"></script>
 	</head>
 		
 		
-	/* once HTML and JS libraries are loaded, run the Main function */
+	<!- once HTML and JS libraries are loaded, run the Main function -->
 	<body onload="Main();">		
-		/* add a Canvas object to the stage */
+		<!- add a Canvas object to the stage  -->
 		<canvas id="PongStage" width="480" height="320"></canvas>
 	</body>
 		
