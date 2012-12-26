@@ -40,8 +40,8 @@ var manifest; //holds list of files to be loaded
 var totalLoaded = 0; //number of files loaded
 
 //TitleView holds several graphics in order to display them together
-var TitleView = new Container();
-
+//var TitleView = new Container();
+var TitleView = new createjs.Container();
 
 
 
@@ -50,8 +50,8 @@ var TitleView = new Container();
 function Main()
 {
 	/* link PongStage Canvas object from index.html to canvas variable, then create Stage object from the canvas */
-	canvas = document.getElementsById('Pong Stage');
-	stage = new Stage(canvas);
+	canvas = document.getElementById('Pong Stage');
+  	stage = new createjs.Stage(canvas);
 	
 	/* allow mouse movements and clicks to be detected */
 	stage.mouseEventsEnabled = true;
