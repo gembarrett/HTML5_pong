@@ -1,7 +1,7 @@
 /* define variables for all graphic objects */
 
 var canvas; //linked to the canvas in index.html
-var stage;// is, unsurprisingly, the stage
+var stage; // is, unsurprisingly, the stage
 
 //graphics
 //[background]
@@ -40,7 +40,6 @@ var manifest; //holds list of files to be loaded
 var totalLoaded = 0; //number of files loaded
 
 //TitleView holds several graphics in order to display them together
-//var TitleView = new Container();
 var TitleView = new createjs.Container();
 
 
@@ -50,23 +49,22 @@ var TitleView = new createjs.Container();
 function Main()
 {
 	/* link PongStage Canvas object from index.html to canvas variable, then create Stage object from the canvas */
-	canvas = document.getElementById('Pong Stage');
+	canvas = document.getElementById('PongStage');
   	stage = new createjs.Stage(canvas);
 	
 	/* allow mouse movements and clicks to be detected */
 	stage.mouseEventsEnabled = true;
 	
-	/* for the old browsers that don't support SoundJS, use Flash (ewwwwwwww)
-	SoundJS.FlashPlugin.BASE_PATH = "assets/";
-	if (!SoundJS.checkPlugin(true))
+	/* for the old browsers that don't support SoundJS, use Flash (ewwwwwwww) */
+  	createjs.FlashPlugin.BASE_PATH = "assets/";
+	if (!createjs.SoundJS.checkPlugin(true))
 	{
 		alert("Error!");
 		return;
 	}
 	
 	/* array of files that need loading */
-	manifest = [
-					{src:"bg.png", id:"bg"},
+	manifest = [{src:"bg.png", id:"bg"},
 					{src:"main.png", id:"main"},
 					{src:"startB.png", id:"startB"},
 					{src:"creditsB.png", id:"creditsB"},
@@ -79,31 +77,27 @@ function Main()
 					{src:"playerScore.mp3|playerScore.ogg", id:"playerScore"},
 					{src:"enemyScore.mp3|enemyScore.ogg", id:"enemyScore"},
 					{src:"hit.mp3|hit.ogg", id:"hit"},
-					{src:"wall.mp3|wall.ogg", id:"wall"},
-				];
+					{src:"wall.mp3|wall.ogg", id:"wall"}];
 				
 	/* configure the preloader object using PreloadJS */
 	//create new PreloadJS object
-	preloader = new PreloadJS();
+	preloader = new createjs.PreloadJS();
 	//put it in the preloader variable
-	preloader.installPlugin(SoundJS);
+	preloader.installPlugin(createjs.SoundJS);
 	//assign a method to each event
 	preloader.onProgress = handleProgress;
 	preloader.onComplete = handleComplete;
 	preloader.onFileLoad = handleFileLoad;
 	//use preloader to load the manifest
-	preloader.loadManifest (manifest);
+	preloader.loadManifest(manifest);
 	
 	//add Ticker object to the stage and set frame rate
-	Ticker.setFPS(30);
-		Ticker.addListener(stage);		
+	createjs.Ticker.setFPS(30);
+	createjs.Ticker.addListener(stage);		
 }
 
 
-
-
 /* *** Preloader functions *** */
-
 function handleProgress(event)
 {
 	//use event.loaded to get the loading percentage - for progress bar, etc.
@@ -120,15 +114,15 @@ function handleFileLoad(event)
 	switch(event.type)
 	{
 		//if image loaded then create bitmap and stick in a variable before calling handleLoadComplete
-		case PreloadJS.IMAGE:
+		case createjs.PreloadJS.IMAGE:
 		var img = new Image();
 		img.src = event.src;
-		img.onLoad = handleLoadComplete;
-		window[event.id] = new Bitmap(img);
+		img.onload = handleLoadComplete;
+		window[event.id] = new createjs.Bitmap(img);
 		break;
 		
 		//if sound loaded then just call handleLoadComplete
-		case PreloadJS.SOUND:
+		case createjs.PreloadJS.SOUND:
 		handleLoadComplete();
 		break;
 	}
@@ -146,10 +140,7 @@ function handleLoadComplete(event)
 }
 
 
-
-
 /* *** Main Menu *** */
-
 function addTitleView()
 {
 	//console.log("Add title view");
@@ -158,10 +149,8 @@ function addTitleView()
 	startB.x = 240 - 31.5;
 	startB.y = 160;
 	startB.name = 'startB';
-	
 	creditsB.x = 241 - 42;
 	creditsB.y = 200;
-	
 	TitleView.addChild(main, startB, creditsB);
 	stage.addChild(bg, TitleView);
 	stage.update();
@@ -172,19 +161,18 @@ function addTitleView()
 }
 
 /* functions to display and remove credits screen and tweenTitleView which starts the game */
-
 function showCredits() //guess what this does...
 {
 	credits.x = 480;
 	stage.addChild(credits);
 	stage.update();
-	Tween.get(credits).to({x:0}, 300);
+	createjs.Tween.get(credits).to({x:0}, 300);
 	credits.onPress = hideCredits;
 }
 
 function hideCredits(e) //any idea what this function might do?
 {
-	Tween.get(Credits).to({x:480}, 300).call(rmvCredits);
+	createjs.Tween.get(credits).to({x:480}, 300).call(rmvCredits);
 }
 
 function rmvCredits() //another consonant please Carol...
@@ -194,15 +182,11 @@ function rmvCredits() //another consonant please Carol...
 
 function tweenTitleView() //let's get ready to rumble!
 {
-	Tween.get(TitleView).to({y:-320}, 300).call(addGameView);
+	createjs.Tween.get(TitleView).to({y:-320}, 300).call(addGameView);
 }
 
 
-
-
-
 /* *** Game Code - finally!! *** */
-
 function addGameView()
 {
 	//exterminate the menu and credits screen
@@ -213,16 +197,16 @@ function addGameView()
 	//position players and ball
 	player.x = 2;
 	player.y = 160 - 37.5;
-	cpu.x = 480-25;
-	cpu.y = 160-37.5;
+	cpu.x = 480 - 25;
+	cpu.y = 160 - 37.5;
 	ball.x = 240 - 15;
 	ball.y = 160 - 15;
 	
 	//positions the starting scores
-	playerScore = new Text('0', 'bold 20px Arial', '#A3FF24');
+	playerScore = new createjs.Text('0', 'bold 20px Arial', '#A3FF24');
 	playerScore.x = 211;
 	playerScore.y = 20;
-	cpuScore = newText('0', 'bold 20px Arial', '#A3FF24');
+	cpuScore = new createjs.Text('0', 'bold 20px Arial', '#A3FF24');
 	cpuScore.x = 262;
 	cpuScore.y = 20;
 	
@@ -238,15 +222,14 @@ function startGame(e)
 {
 	bg.onPress = null;
 	stage.onMouseMove = movePaddle;
-	
-	Ticker.addListener(tkr, false);
+	createjs.Ticker.addListener(tkr, false);
 	tkr.tick = update;
 }
 
 function movePaddle(e)
 {
 	//place the user's paddle at the mouse's y-coordinate
-	player.y = e.stage.Y;
+	player.y = e.stageY;
 }
 
 function reset()
@@ -256,37 +239,10 @@ function reset()
 	ball.y = 160 - 15;
 	player.y = 160 - 37.5;
 	cpu.y = 160 - 37.5;
-	
 	stage.onMouseMove = null;
-	Ticker.removeListener(tkr);
+	createjs.Ticker.removeListener(tkr);
 	bg.onPress = startGame;
 }
-
-function alert(e)
-{
-	Ticker.removeListener(tkr);
-	stage.onMouseMove = null;
-	bg.onPress = null;
-	
-	if(e == 'win')
-	{
-		win.x = 140;
-		win.y = -90;
-		
-		stage.addChild(win);
-		Tween.get(win).to({y:115}, 300);
-	}
-	else
-	{
-		lose.x = 140;
-		lose.y = -90;
-		
-		stage.addChild(lose);
-		Tween.get(lose).to({y:115}, 300);
-	}
-}
-
-
 
 
 /* *** Into the loop *** */
@@ -310,13 +266,13 @@ function update ()
 	if((ball.y) < 0) //top border
 	{
 		ySpeed = -ySpeed;
-		SoundJS.play('wall');
+		createjs.SoundJS.play('wall');
 	};
 	
 	if((ball.y + (30)) > 320) //bottom border
 	{
 		ySpeed = -ySpeed;
-		SoundJS.play('wall');
+		createjs.SoundJS.play('wall');
 	};
 	
 	//CPU score
@@ -328,7 +284,7 @@ function update ()
 		//reset the locations
 		reset();
 		//play the enemy's scoring sound
-		SoundJS.play('enemyScore');
+		createjs.SoundJS.play('enemyScore');
 	}
 	
 	//Player score
@@ -340,7 +296,7 @@ function update ()
 		// reset the locations
 		reset();
 		//play the player's scoring sound
-		SoundJS.play('playerScore');
+		createjs.SoundJS.play('playerScore');
 	}
 	
 	/* if the ball hits the paddle, it changes direction and a sound is played */
@@ -348,14 +304,14 @@ function update ()
 	if(ball.x + 30 > cpu.x && ball.x + 30 < cpu.x + 22 && ball.y >= cpu.y && ball.y < cpu.y + 75)
 	{
 		xSpeed *= -1;
-		SoundJS.play('hit');
+		createjs.SoundJS.play('hit');
 	}
 	
 	//Player collision
 	if(ball.x <= player.x + 22 && ball.x > player.x && ball.y >= player.y && ball.y < player.y + 75)
 	{
 		xSpeed *= -1;
-		SoundJS.play('hit');
+		createjs.SoundJS.play('hit');
 	}
 	
 	//if a paddle goes out of bounds, it gets put back in bounds
@@ -377,11 +333,26 @@ function update ()
 	}
 	
 }
-	
 
+function alert(e)
+{
+	createjs.Ticker.removeListener(tkr);
+	stage.onMouseMove = null;
+	bg.onPress = null;
+	if(e == 'win')
+	{
+		win.x = 140;
+		win.y = -90;
+		stage.addChild(win);
+		createjs.Tween.get(win).to({y: 115}, 300);
+	}
+	else
+	{
+		lose.x = 140;
+		lose.y = -90;
+		stage.addChild(lose);
+		createjs.Tween.get(lose).to({y: 115}, 300);
+	}
+}
 
-
-	
-
-	
-	
+// end of code
