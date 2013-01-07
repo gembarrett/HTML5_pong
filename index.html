@@ -4,7 +4,10 @@
 		<title>Pong Game using CreateJS</title>
 		
 		<!- remove mobile highlight which appears when playing on mobile device - otherwise canvas object gets highlighted and finger movements are ignored -->
-		<style>*{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}</style>
+		<style>*{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+		#frame {width: 600px; height: 435px; background-image: url("frame.png"); padding-top: 57px; padding-left: 60px; background-repeat: no-repeat; margin: 0 auto;}
+		body { background-color: black; }
+		</style>
 
 		<!- load the CreateJS libraries from the CreateJS CDN (Content Delivery Network)  -->
 		
@@ -24,13 +27,17 @@
 		
 		<!- load the code for the game  -->
 		<script src="Main.js"></script>
+		
+		
 	</head>
 		
 		
 	<!- once HTML and JS libraries are loaded, run the Main function -->
 	<body onload="Main();">
+	<div id="frame">
 		<!- add a Canvas object to the stage  -->
 		<canvas id="PongStage" width="480" height="320"></canvas>
+	</div>
 	</body>
 		
 </html>

@@ -146,7 +146,7 @@ function addTitleView()
 	//console.log("Add title view");
 	
 	//place images of background, Start and Credit buttons on the stage
-	startB.x = 240 - 31.5;
+	startB.x = 240 - 41.5;
 	startB.y = 160;
 	startB.name = 'startB';
 	creditsB.x = 241 - 42;
@@ -203,10 +203,10 @@ function addGameView()
 	ball.y = 160 - 15;
 	
 	//positions the starting scores
-	playerScore = new createjs.Text('0', 'bold 20px Arial', '#A3FF24');
+	playerScore = new createjs.Text('0', 'bold 20px Arial', '#fee900');
 	playerScore.x = 211;
 	playerScore.y = 20;
-	cpuScore = new createjs.Text('0', 'bold 20px Arial', '#A3FF24');
+	cpuScore = new createjs.Text('0', 'bold 20px Arial', '#fee900');
 	cpuScore.x = 262;
 	cpuScore.y = 20;
 	
